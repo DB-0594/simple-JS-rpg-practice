@@ -4,7 +4,7 @@ body {
 
 #text {
   background-color: #a9ffb8;
-  color: #ffffff;
+  color: #fe44dd;
   padding: 10px;
 }
 
@@ -12,7 +12,7 @@ body {
   max-width: 500px;
   max-height: 400px;
   background-color: #ffffff;
-  color: #ffffff;
+  color: #fe44dd;
   margin: 30px auto 0px;
   padding: 10px;
 }
@@ -21,15 +21,15 @@ body {
 #stats {
   border: 1px solid #ffa9f0;
   padding: 5px;
-  color: #0a0a23;
+  color: #fe44dd;
 }
 
 #monsterStats {
   display: none;
   border: 1px solid #ffa9f0;
   padding: 5px;
-  color: #ffffff;
-  background-color: #a9ffb8;
+  color: #fe44dd;
+  background-color: #ffe3a9;
 }
 
 .stat {
@@ -38,8 +38,9 @@ body {
 
 button {
   cursor: pointer;
-  color: #0a0a23;
-  background-color: #feac32;
-  background-image: linear-gradient(#fecc4c, #ffac33);
-  border: 3px solid #feac32;
+  color: #fe44dd;
+  background-color: #a9c5ff;
+  background-image: linear-gradient(#cdddff, #75a1ff);
+  border: 3px solid #a9c5ff;
+  border-radius: 10px
 }
