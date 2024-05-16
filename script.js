@@ -161,7 +161,7 @@ function sellWeapon() {
   }
 }
 
-function tickleSlime() {
+function tickleFairy() {
   fighting = 0;
   goTickle();
 }
