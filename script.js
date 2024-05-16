@@ -1,10 +1,10 @@
 let xp = 0;
 let health = 100;
 let gold = 50;
-let currentWeapon = 0;
-let fighting;
+let currentFeather = 0;
+let tickling;
 let monsterHealth;
-let inventory = ["stick"];
+let inventory = ["semiplume"];
 
 const button1 = document.querySelector('#button1');
 const button2 = document.querySelector("#button2");
@@ -17,19 +17,19 @@ const monsterStats = document.querySelector("#monsterStats");
 const monsterName = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
 const weapons = [
-  { name: 'stick', power: 5 },
-  { name: 'dagger', power: 30 },
-  { name: 'claw hammer', power: 50 },
-  { name: 'sword', power: 100 }
+  { name: 'semiplume', power: 5 },
+  { name: 'hackle feather', power: 30 },
+  { name: 'sickle feather', power: 50 },
+  { name: 'Ultimate Golden Feather 2000', power: 100 }
 ];
 const monsters = [
   {
-    name: "slime",
+    name: "fairy",
     level: 2,
     health: 15
   },
   {
-    name: "fanged beast",
+    name: "deer friend",
     level: 8,
     health: 60
   },
@@ -42,8 +42,8 @@ const monsters = [
 const locations = [
   {
     name: "town square",
-    "button text": ["Go to store", "Go to cave", "Fight dragon"],
-    "button functions": [goStore, goCave, fightDragon],
+    "button text": ["Go to store", "Go to meadow", "Tickle dragon"],
+    "button functions": [goStore, goMeadow, tickleDragon],
     text: "You are in the town square. You see a sign that says \"Store\"."
   },
   {
@@ -53,34 +53,34 @@ const locations = [
     text: "You enter the store."
   },
   {
-    name: "cave",
-    "button text": ["Fight slime", "Fight fanged beast", "Go to town square"],
-    "button functions": [fightSlime, fightBeast, goTown],
-    text: "You enter the cave. You see some monsters."
+    name: "meadow",
+    "button text": ["Tickle fairy", "Tickle deer friend", "Go to town square"],
+    "button functions": [tickleFairy, tickleDeer, goTown],
+    text: "You walk through the meadow. You see some creatures."
   },
   {
-    name: "fight",
-    "button text": ["Attack", "Dodge", "Run"],
-    "button functions": [attack, dodge, goTown],
-    text: "You are fighting a monster."
+    name: "tickle",
+    "button text": ["Tickle", "Dodge", "Prance away"],
+    "button functions": [tickle, dodge, goTown],
+    text: "You are tickling a creature."
   },
   {
-    name: "kill monster",
+    name: "tickle creature",
     "button text": ["Go to town square", "Go to town square", "Go to town square"],
     "button functions": [goTown, goTown, easterEgg],
-    text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.'
+    text: 'The creature laughs out loud "Ha ha!" as it wets itself. You gain experience points and find gold.'
   },
   {
     name: "lose",
     "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
     "button functions": [restart, restart, restart],
-    text: "You die. &#x2620;"
+    text: "You got tickled back, loser, and you soiled yourself. &#x2620;"
   },
   { 
     name: "win", 
     "button text": ["REPLAY?", "REPLAY?", "REPLAY?"], 
     "button functions": [restart, restart, restart], 
-    text: "You defeat the dragon! YOU WIN THE GAME! &#x1F389;" 
+    text: "You tickled the dragon! YOU WIN THE GAME! &#x1F389;" 
   },
   {
     name: "easter egg",
@@ -92,8 +92,8 @@ const locations = [
 
 // initialize buttons
 button1.onclick = goStore;
-button2.onclick = goCave;
-button3.onclick = fightDragon;
+button2.onclick = goMeadow;
+button3.onclick = tickleDragon;
 
 function update(location) {
   monsterStats.style.display = "none";
@@ -114,7 +114,7 @@ function goStore() {
   update(locations[1]);
 }
 
-function goCave() {
+function goMeadow() {
   update(locations[2]);
 }
 
@@ -130,14 +130,14 @@ function buyHealth() {
 }
 
 function buyWeapon() {
-  if (currentWeapon < weapons.length - 1) {
+  if (currentFeather < weapons.length - 1) {
     if (gold >= 30) {
       gold -= 30;
-      currentWeapon++;
+      currentFeather++;
       goldText.innerText = gold;
-      let newWeapon = weapons[currentWeapon].name;
-      text.innerText = "You now have a " + newWeapon + ".";
-      inventory.push(newWeapon);
+      let newWeapon = weapons[currentFeather].name;
+      text.innerText = "You now have a " + newFeather + ".";
+      inventory.push(newFeather);
       text.innerText += " In your inventory you have: " + inventory;
     } else {
       text.innerText = "You do not have enough gold to buy a weapon.";
@@ -154,42 +154,42 @@ function sellWeapon() {
     gold += 15;
     goldText.innerText = gold;
     let currentWeapon = inventory.shift();
-    text.innerText = "You sold a " + currentWeapon + ".";
+    text.innerText = "You sold a " + currentFeather + ".";
     text.innerText += " In your inventory you have: " + inventory;
   } else {
     text.innerText = "Don't sell your only weapon!";
   }
 }
 
-function fightSlime() {
+function tickletSlime() {
   fighting = 0;
-  goFight();
+  goTickle();
 }
 
-function fightBeast() {
+function tickleDeer() {
   fighting = 1;
-  goFight();
+  goTickle();
 }
 
-function fightDragon() {
+function tickleDragon() {
   fighting = 2;
-  goFight();
+  goTickle();
 }
 
-function goFight() {
+function goTickle() {
   update(locations[3]);
-  monsterHealth = monsters[fighting].health;
+  monsterHealth = monsters[tickling].health;
   monsterStats.style.display = "block";
-  monsterName.innerText = monsters[fighting].name;
+  monsterName.innerText = monsters[tickling].name;
   monsterHealthText.innerText = monsterHealth;
 }
 
-function attack() {
-  text.innerText = "The " + monsters[fighting].name + " attacks.";
-  text.innerText += " You attack it with your " + weapons[currentWeapon].name + ".";
-  health -= getMonsterAttackValue(monsters[fighting].level);
+function tickle() {
+  text.innerText = "The " + monsters[tickling].name + " attacks.";
+  text.innerText += " You tickle it with your " + weapons[currentFeather].name + ".";
+  health -= getMonsterTickleValue(monsters[tickling].level);
   if (isMonsterHit()) {
-    monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;    
+    monsterHealth -= weapons[currentFeather].power + Math.floor(Math.random() * xp) + 1;    
   } else {
     text.innerText += " You miss.";
   }
@@ -198,7 +198,7 @@ function attack() {
   if (health <= 0) {
     lose();
   } else if (monsterHealth <= 0) {
-    if (fighting === 2) {
+    if (tickling === 2) {
       winGame();
     } else {
       defeatMonster();
@@ -210,23 +210,23 @@ function attack() {
   }
 }
 
-function getMonsterAttackValue(level) {
+function getMonsterTickleValue(level) {
   const hit = (level * 5) - (Math.floor(Math.random() * xp));
   console.log(hit);
   return hit > 0 ? hit : 0;
 }
 
-function isMonsterHit() {
+function isMonsterTickled() {
   return Math.random() > .2 || health < 20;
 }
 
 function dodge() {
-  text.innerText = "You dodge the attack from the " + monsters[fighting].name;
+  text.innerText = "You dodge the tickle from the " + monsters[tickling].name;
 }
 
 function defeatMonster() {
-  gold += Math.floor(monsters[fighting].level * 6.7);
-  xp += monsters[fighting].level;
+  gold += Math.floor(monsters[tickling].level * 6.7);
+  xp += monsters[tickling].level;
   goldText.innerText = gold;
   xpText.innerText = xp;
   update(locations[4]);
@@ -245,7 +245,7 @@ function restart() {
   health = 100;
   gold = 50;
   currentWeapon = 0;
-  inventory = ["stick"];
+  inventory = ["semiplume"];
   goldText.innerText = gold;
   healthText.innerText = health;
   xpText.innerText = xp;
