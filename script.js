@@ -135,7 +135,7 @@ function buyWeapon() {
       gold -= 30;
       currentFeather++;
       goldText.innerText = gold;
-      let newWeapon = weapons[currentFeather].name;
+      let newFeather = weapons[currentFeather].name;
       text.innerText = "You now have a " + newFeather + ".";
       inventory.push(newFeather);
       text.innerText += " In your inventory you have: " + inventory;
@@ -153,7 +153,7 @@ function sellWeapon() {
   if (inventory.length > 1) {
     gold += 15;
     goldText.innerText = gold;
-    let currentWeapon = inventory.shift();
+    let currentFeather = inventory.shift();
     text.innerText = "You sold a " + currentFeather + ".";
     text.innerText += " In your inventory you have: " + inventory;
   } else {
@@ -161,7 +161,7 @@ function sellWeapon() {
   }
 }
 
-function tickletSlime() {
+function tickleSlime() {
   fighting = 0;
   goTickle();
 }
@@ -188,7 +188,7 @@ function tickle() {
   text.innerText = "The " + monsters[tickling].name + " attacks.";
   text.innerText += " You tickle it with your " + weapons[currentFeather].name + ".";
   health -= getMonsterTickleValue(monsters[tickling].level);
-  if (isMonsterHit()) {
+  if (isMonsterTickled()) {
     monsterHealth -= weapons[currentFeather].power + Math.floor(Math.random() * xp) + 1;    
   } else {
     text.innerText += " You miss.";
@@ -206,7 +206,7 @@ function tickle() {
   }
   if (Math.random() <= .1 && inventory.length !== 1) {
     text.innerText += " Your " + inventory.pop() + " breaks.";
-    currentWeapon--;
+    currentFeather--;
   }
 }
 
@@ -244,7 +244,7 @@ function restart() {
   xp = 0;
   health = 100;
   gold = 50;
-  currentWeapon = 0;
+  currentFeather = 0;
   inventory = ["semiplume"];
   goldText.innerText = gold;
   healthText.innerText = health;
