@@ -162,17 +162,17 @@ function sellWeapon() {
 }
 
 function tickleFairy() {
-  fighting = 0;
+  tickling = 0;
   goTickle();
 }
 
 function tickleDeer() {
-  fighting = 1;
+  tickling = 1;
   goTickle();
 }
 
 function tickleDragon() {
-  fighting = 2;
+  tickling = 2;
   goTickle();
 }
 
